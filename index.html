@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Oleg Mogilin — Mathematics & Software</title>
+<meta name="description" content="Oleg Mogilin — Mathematics student at TUM and software developer (C++, Python, C#, Swift). Hackathons, internships, and personal projects." />
+<meta name="author" content="Oleg Mogilin" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Oleg Mogilin — Mathematics & Software" />
+<meta property="og:description" content="Mathematics student at TUM and software developer. C++, Python, C#, Swift." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/photo.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#0b0d12;
+  --bg-soft:#11141c;
+  --card:#151926;
+  --card-2:#1a1f2f;
+  --line:rgba(255,255,255,.08);
+  --text:#e8ecf4;
+  --muted:#9aa3b8;
+  --faint:#6c7489;
+  --accent:#6ea8fe;
+  --accent-2:#9d7bff;
+  --accent-3:#5eead4;
+  --glow:rgba(110,168,254,.35);
+  --shadow:0 18px 50px -20px rgba(0,0,0,.7);
+  --radius:18px;
+  --maxw:980px;
+}
+html[data-theme="light"]{
+  --bg:#f6f7fb;
+  --bg-soft:#eef1f8;
+  --card:#ffffff;
+  --card-2:#f4f6fc;
+  --line:rgba(10,15,30,.09);
+  --text:#11151f;
+  --muted:#525a6e;
+  --faint:#7c849b;
+  --accent:#2f6bff;
+  --accent-2:#7b3ff2;
+  --accent-3:#0d9488;
+  --glow:rgba(47,107,255,.22);
+  --shadow:0 18px 50px -24px rgba(20,30,60,.35);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:background .4s ease,color .4s ease;
+}
+
+/* ambient background */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+.aurora .a{width:520px;height:520px;background:var(--accent);top:-160px;left:-120px;opacity:.28}
+.aurora .b{width:480px;height:480px;background:var(--accent-2);top:30%;right:-160px;opacity:.22}
+.aurora .c{width:420px;height:420px;background:var(--accent-3);bottom:-160px;left:25%;opacity:.16}
+
+.wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+/* nav */
+nav{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(160%) blur(14px);
+  background:color-mix(in srgb,var(--bg) 72%,transparent);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:18px}
+.brand{font-family:'Sora',sans-serif;font-weight:800;letter-spacing:-.02em;font-size:1.02rem}
+.brand b{color:var(--accent)}
+.nav-links{margin-left:auto;display:flex;gap:6px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;
+  padding:8px 12px;border-radius:10px;transition:.2s;
+}
+.nav-links a:hover{color:var(--text);background:var(--card-2)}
+.theme-btn{
+  width:38px;height:38px;display:grid;place-items:center;cursor:pointer;
+  border:1px solid var(--line);background:var(--card);border-radius:11px;color:var(--text);
+  transition:.25s;
+}
+.theme-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+@media(max-width:640px){.nav-links a:not(.cv-link){display:none}}
+
+/* hero */
+header{padding:64px 0 30px}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
+@media(max-width:720px){.hero{grid-template-columns:1fr;text-align:center;gap:26px;justify-items:center}}
+
+.photo-frame{position:relative;width:200px;height:200px;flex-shrink:0}
+.photo-frame::before{
+  content:"";position:absolute;inset:-6px;border-radius:50%;
+  background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));
+  filter:blur(2px);opacity:.85;animation:spin 9s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo-frame img{
+  position:relative;width:200px;height:200px;border-radius:50%;object-fit:cover;
+  border:4px solid var(--bg);box-shadow:var(--shadow);
+}
+.status{
+  position:absolute;bottom:12px;right:12px;z-index:2;
+  display:flex;align-items:center;gap:6px;
+  background:var(--card);border:1px solid var(--line);
+  padding:5px 11px;border-radius:999px;font-size:.74rem;font-weight:600;box-shadow:var(--shadow);
+}
+.dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 #34d39966;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #34d39966}70%{box-shadow:0 0 0 9px #34d39900}100%{box-shadow:0 0 0 0 #34d39900}}
+
+.eyebrow{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.82rem;letter-spacing:.04em;margin-bottom:10px}
+h1{font-family:'Sora',sans-serif;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:0 0 12px;font-size:clamp(2.1rem,6vw,3.3rem)}
+h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font-size:1.12rem;color:var(--muted);margin:0 0 18px;font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:10px 18px;color:var(--faint);font-size:.9rem;justify-content:inherit}
+.meta a{color:var(--faint);text-decoration:none}
+.meta a:hover{color:var(--accent)}
+.meta span{display:inline-flex;align-items:center;gap:7px}
+
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;justify-content:inherit}
+@media(max-width:720px){.cta,.meta{justify-content:center}}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  font-weight:600;font-size:.92rem;padding:11px 18px;border-radius:12px;
+  transition:.25s;border:1px solid transparent;
+}
+.btn svg{width:17px;height:17px}
+.btn-primary{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 30px -10px var(--glow)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 38px -10px var(--glow)}
+.btn-ghost{background:var(--card);color:var(--text);border-color:var(--line)}
+.btn-ghost:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--accent)}
+
+/* sections */
+section{padding:46px 0;scroll-margin-top:80px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.sec-head h2{font-family:'Sora',sans-serif;font-weight:700;letter-spacing:-.02em;font-size:1.5rem;margin:0}
+.sec-head .idx{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.85rem;opacity:.8}
+.sec-head .rule{flex:1;height:1px;background:var(--line)}
+
+.lead{font-size:1.12rem;color:var(--muted);max-width:760px}
+.lead b{color:var(--text);font-weight:600}
+
+/* cards / timeline */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;box-shadow:var(--shadow);transition:.3s;
+}
+.timeline{display:flex;flex-direction:column;gap:16px}
+.job{position:relative;padding-left:30px}
+.job::before{content:"";position:absolute;left:8px;top:8px;bottom:-16px;width:2px;background:var(--line)}
+.job:last-child::before{display:none}
+.job::after{content:"";position:absolute;left:3px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+.job:hover .card{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.job-top{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:4px}
+.job-title{font-family:'Sora',sans-serif;font-weight:700;font-size:1.06rem}
+.job-when{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);margin-left:auto;white-space:nowrap}
+.job-org{color:var(--muted);font-size:.92rem;margin-bottom:10px;font-weight:500}
+.job ul{margin:0;padding-left:18px;color:var(--muted)}
+.job li{margin:5px 0}
+.job li::marker{color:var(--accent)}
+
+/* skills grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.skill-card h3{font-family:'Sora',sans-serif;font-size:1rem;margin:0 0 12px;display:flex;align-items:center;gap:9px}
+.skill-card h3 .ic{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.82rem;font-weight:500;padding:6px 12px;border-radius:999px;background:var(--card-2);border:1px solid var(--line);color:var(--muted);transition:.2s}
+.chip:hover{color:var(--text);border-color:var(--accent);transform:translateY(-2px)}
+.chip.mono{font-family:'JetBrains Mono',monospace}
+
+/* achievements */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.ach{display:flex;gap:14px;align-items:flex-start}
+.ach .badge{flex-shrink:0;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:1.2rem;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent-2) 20%,transparent));border:1px solid var(--line)}
+.ach .at{font-weight:600;font-size:.96rem;margin-bottom:2px}
+.ach .ad{color:var(--muted);font-size:.86rem}
+.ach a{color:var(--accent);text-decoration:none}
+.ach a:hover{text-decoration:underline}
+
+/* languages */
+.langs{display:flex;flex-wrap:wrap;gap:12px}
+.lang{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);padding:10px 16px;border-radius:12px;box-shadow:var(--shadow)}
+.lang .fl{font-size:1.3rem}
+.lang .ln{font-weight:600;font-size:.92rem}
+.lang .lv{color:var(--faint);font-size:.78rem;font-family:'JetBrains Mono',monospace}
+
+/* footer */
+footer{padding:50px 0 60px;text-align:center;border-top:1px solid var(--line);margin-top:30px}
+.foot-cta{font-family:'Sora',sans-serif;font-weight:700;font-size:1.4rem;margin-bottom:8px;letter-spacing:-.02em}
+.foot-mail{color:var(--accent);text-decoration:none;font-size:1.05rem}
+.foot-mail:hover{text-decoration:underline}
+.socials{display:flex;gap:12px;justify-content:center;margin:22px 0 18px}
+.socials a{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--text);transition:.25s}
+.socials a:hover{transform:translateY(-4px);color:var(--accent);border-color:var(--accent);box-shadow:var(--shadow)}
+.socials svg{width:20px;height:20px}
+.copy{color:var(--faint);font-size:.82rem;margin-top:8px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.photo-frame::before,.dot{animation:none}}
+</style>
+</head>
+<body>
+<div class="aurora"><span class="a"></span><span class="b"></span><span class="c"></span></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">Oleg<b>.</b>Mogilin</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#achievements">Achievements</a>
+      <a class="cv-link" href="assets/Oleg_Mogilin_CV.pdf" target="_blank" rel="noopener">CV ↗</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="hero">
+      <div class="photo-frame reveal">
+        <img src="assets/photo.jpg" alt="Oleg Mogilin" />
+        <div class="status"><span class="dot"></span>Open to opportunities</div>
+      </div>
+      <div class="hero-text">
+        <div class="eyebrow reveal">// mathematics · software · curiosity</div>
+        <h1 class="reveal">Oleg <span class="grad">Mogilin</span></h1>
+        <p class="role reveal">B.Sc. Mathematics @ TUM · Software Developer</p>
+        <div class="meta reveal">
+          <span>📍 Prague, CZ &amp; Munich, DE</span>
+          <span>✉️ <a href="mailto:oleg77565@gmail.com">oleg77565@gmail.com</a></span>
+          <span>📞 <a href="tel:+420724382088">+420 724 382 088</a></span>
+        </div>
+        <div class="cta reveal">
+          <a class="btn btn-primary" href="assets/Oleg_Mogilin_CV.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg>
+            Download CV
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/oleg-sith" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.7c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"></path></svg>
+            GitHub
+          </a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/oleg-mogilin-676724211/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.3v1.6h.1c.5-.9 1.6-1.9 3.3-1.9 3.6 0 4.3 2.4 4.3 5.4v6.3zM5.3 7.4a2 2 0 1 1 0-4.1 2 2 0 0 1 0 4.1zM7.1 20.4H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"></path></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <div class="sec-head"><span class="idx">01</span><h2>About</h2><span class="rule"></span></div>
+    <p class="lead">
+      Mathematics undergraduate at the <b>Technical University of Munich</b> with <b>5+ years</b>
+      of programming experience across <b>C++, Python, and C#</b>. I learn by building — turning ideas
+      into real software, chasing hard problems at hackathons, and applying mathematical thinking to
+      data, apps, and AI systems.
+    </p>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="reveal">
+    <div class="sec-head"><span class="idx">02</span><h2>Experience</h2><span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="job">
+        <div class="card">
+          <div class="job-top">
+            <span class="job-title">Research / Data Analysis Intern</span>
+            <span class="job-when">May 2026 — Present</span>
+          </div>
+          <div class="job-org">Radius Centre · Prague</div>
+          <ul>
+            <li>Applied <b>factor analysis</b> and <b>PCA</b> to survey question groups to uncover latent factors and reduce dimensionality.</li>
+            <li>Constructed component-based variables representing related question groups for further statistical and probabilistic analysis.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="card">
+          <div class="job-top">
+            <span class="job-title">iOS &amp; Web Developer</span>
+            <span class="job-when">Jul 2024 — Oct 2024</span>
+          </div>
+          <div class="job-org">LASAR · Prague</div>
+          <ul>
+            <li>Led development of <b>LASAR</b>, an app that notifies users about upcoming events.</li>
+            <li>Designed and implemented the app's user interface and overall product design.</li>
+            <li>Built the frontend with a strong focus on intuitive, user-friendly interaction.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="card">
+          <div class="job-top">
+            <span class="job-title">Software Developer</span>
+            <span class="job-when">2022</span>
+          </div>
+          <div class="job-org">Plugin · Prague</div>
+          <ul>
+            <li>Built web applications using <b>C# (Blazor)</b>.</li>
+            <li>Worked with the Reactive UI framework.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="card">
+          <div class="job-top">
+            <span class="job-title">B.Sc. in Mathematics</span>
+            <span class="job-when">Oct 2025 — 2028 (exp.)</span>
+          </div>
+          <div class="job-org">Technical University of Munich (TUM)</div>
+          <ul>
+            <li>Undergraduate studies in mathematics with a focus on analysis, probability, and computation.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="reveal">
+    <div class="sec-head"><span class="idx">03</span><h2>Skills</h2><span class="rule"></span></div>
+    <div class="grid">
+      <div class="card skill-card">
+        <h3><span class="ic">⌨️</span>Languages</h3>
+        <div class="chips">
+          <span class="chip mono">C++</span><span class="chip mono">Python</span>
+          <span class="chip mono">C#</span><span class="chip mono">Swift</span>
+        </div>
+      </div>
+      <div class="card skill-card">
+        <h3><span class="ic">🧩</span>Frameworks &amp; Tools</h3>
+        <div class="chips">
+          <span class="chip">Blazor</span><span class="chip">Reactive UI</span>
+          <span class="chip">SwiftUI</span><span class="chip">Git</span>
+        </div>
+      </div>
+      <div class="card skill-card">
+        <h3><span class="ic">📊</span>Math &amp; Data</h3>
+        <div class="chips">
+          <span class="chip">Factor Analysis</span><span class="chip">PCA</span>
+          <span class="chip">Probability</span><span class="chip">Statistics</span>
+        </div>
+      </div>
+      <div class="card skill-card">
+        <h3><span class="ic">🚀</span>Domains</h3>
+        <div class="chips">
+          <span class="chip">iOS Apps</span><span class="chip">Web Dev</span>
+          <span class="chip">AI Agents</span><span class="chip">Algorithms</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements" class="reveal">
+    <div class="sec-head"><span class="idx">04</span><h2>Achievements</h2><span class="rule"></span></div>
+    <div class="ach-grid">
+      <div class="card ach">
+        <div class="badge">🏆</div>
+        <div><div class="at">Mattoni Eagles 2026</div><div class="ad">Selected as one of 15 finalists in a competitive Czech student leadership &amp; entrepreneurship program.</div></div>
+      </div>
+      <div class="card ach">
+        <div class="badge">💡</div>
+        <div><div class="at">HackaTUM 2025</div><div class="ad">Participant in one of the largest hackathons in Europe.</div></div>
+      </div>
+      <div class="card ach">
+        <div class="badge">🤖</div>
+        <div><div class="at">GreenHack 2026 — Argus</div><div class="ad">Built a platform that supervises and optimises fleets of AI agents in real time.</div></div>
+      </div>
+      <div class="card ach">
+        <div class="badge">🦾</div>
+        <div><div class="at">Robosoutěž 2022 &amp; 2023</div><div class="ad">Designed and built a basketball-playing robot for the competition.</div></div>
+      </div>
+      <div class="card ach">
+        <div class="badge">⚡</div>
+        <div><div class="at">Competitive Programming</div><div class="ad">Olympiad problem-solving on <a href="https://codeforces.com/" target="_blank" rel="noopener">Codeforces</a> &amp; <a href="https://www.codewars.com/" target="_blank" rel="noopener">Codewars</a>.</div></div>
+      </div>
+      <div class="card ach">
+        <div class="badge">🔬</div>
+        <div><div class="at">Physics Olympiad</div><div class="ad">Successful participant in the regional round.</div></div>
+      </div>
+      <div class="card ach">
+        <div class="badge">🎓</div>
+        <div><div class="at">Google · Crash Course on Python</div><div class="ad">Certified through Coursera.</div></div>
+      </div>
+      <div class="card ach">
+        <div class="badge">📈</div>
+        <div><div class="at">Personal Projects</div><div class="ad">Stock-profit tracker (Swift), text encryption, Tic-Tac-Toe, and more.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section id="languages" class="reveal">
+    <div class="sec-head"><span class="idx">05</span><h2>Languages</h2><span class="rule"></span></div>
+    <div class="langs">
+      <div class="lang"><span class="fl">🇬🇧</span><span class="ln">English</span><span class="lv">fluent</span></div>
+      <div class="lang"><span class="fl">🇨🇿</span><span class="ln">Czech</span><span class="lv">fluent</span></div>
+      <div class="lang"><span class="fl">🇩🇪</span><span class="ln">German</span><span class="lv">working</span></div>
+      <div class="lang"><span class="fl">🇺🇦</span><span class="ln">Ukrainian</span><span class="lv">native</span></div>
+      <div class="lang"><span class="fl">🇷🇺</span><span class="ln">Russian</span><span class="lv">native</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap reveal">
+    <div class="foot-cta">Let's build something great.</div>
+    <a class="foot-mail" href="mailto:oleg77565@gmail.com">oleg77565@gmail.com</a>
+    <div class="socials">
+      <a href="https://github.com/oleg-sith" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.7c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"></path></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/oleg-mogilin-676724211/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.3v1.6h.1c.5-.9 1.6-1.9 3.3-1.9 3.6 0 4.3 2.4 4.3 5.4v6.3zM5.3 7.4a2 2 0 1 1 0-4.1 2 2 0 0 1 0 4.1zM7.1 20.4H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"></path></svg>
+      </a>
+      <a href="mailto:oleg77565@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg>
+      </a>
+    </div>
+    <div class="copy">© <span id="year"></span> Oleg Mogilin · Built with care.</div>
+  </div>
+</footer>
+
+<script>
+// theme
+const root=document.documentElement, tb=document.getElementById('themeBtn'), ti=document.getElementById('themeIcon');
+const moon='<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>';
+const sun='<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
+function setTheme(t){root.setAttribute('data-theme',t);ti.innerHTML=t==='light'?moon:sun;try{localStorage.setItem('theme',t)}catch(e){}}
+setTheme((()=>{try{return localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}catch(e){return 'dark'}})());
+tb.addEventListener('click',()=>setTheme(root.getAttribute('data-theme')==='light'?'dark':'light'));
+
+// reveal on scroll
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,6)*60)+'ms';io.observe(el)});
+
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
